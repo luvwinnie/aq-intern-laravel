@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/{family_name}/{given_name}/position','EmployeePositionController@get_position');
