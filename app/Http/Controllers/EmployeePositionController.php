@@ -28,8 +28,6 @@ class EmployeePositionController extends Controller
     public function get_position(Request $request,$family_name,$given_name)
     {
 
-        dd($family_name);
-
         $employees = Employee::select('employees.position')->where('family_name','like','%'.$family_name.'%')->where('given_name','like','%'.$given_name.'%');
         
 
