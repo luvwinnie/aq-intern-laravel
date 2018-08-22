@@ -34,7 +34,7 @@ class EmployeePositionController extends Controller
             return response()->json(["message" => "Record is not exists"],400);
         }
 
-        return response()->json($employees->get('position')->first(),200);
+        return response()->json($employees->get('position'),200);
 
 
         
