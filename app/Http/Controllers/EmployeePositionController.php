@@ -30,8 +30,11 @@ class EmployeePositionController extends Controller
 
         $employees = Employee::select('employees.position')->where('family_name','like','%'.$family_name.'%')->where('given_name','like','%'.$given_name.'%');
         
+        if (! $employees->exists()) {
+            return response()->json(["message" => "Record is not exists"],400);
+        }
 
-        return response()->json($employees->get('position'));
+        return response()->json($employees->get('position')->first(),200);
 
 
         
@@ -54,13 +57,10 @@ class EmployeePositionController extends Controller
         $employees = Employee::select('employees.*')->where('family_name','like','%'.$family_name.'%')->where('given_name','like','%'.$given_name.'%')->update(['beacon_id' => $id,'position' => $position,'positioned_at' => Carbon::now()]);
 
         if ($employees == 1){
-            return response()->json(["message"=>"Update Successfully"]);
+            return response()->json(["message"=>"Update Successfully"],200);
         }
 
-        return response()->json(["message"=>"Update Failed "]);
-
-
-        
+        return response()->json(["message"=>"Update Failed "],400);
     }
 
 }
