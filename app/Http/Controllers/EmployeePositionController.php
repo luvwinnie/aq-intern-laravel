@@ -49,7 +49,7 @@ class EmployeePositionController extends Controller
             return response()->json("error params",400);
         }
 
-        $beacon = Beacon::where('major','like','%'.$major.'%')->where('minor','like','%'.$minor.'%')->first();
+        $beacon = Beacon::where('major', $major)->where('minor', $minor)->first();
 
         if (!$beacon){
             return response()->json("Beacon not found, Is it exists?",404);
