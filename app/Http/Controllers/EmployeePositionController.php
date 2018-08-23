@@ -46,7 +46,7 @@ class EmployeePositionController extends Controller
         $minor = $request->input('minor');
 
         if ($major == "" || $minor == ""){
-            return response()->json(["error_message" => "error params"]);
+            return response()->json("error params",400);
         }
 
         $position_id = Beacon::select('id','position')->where('major','like','%'.$major.'%')->where('minor','like','%'.$minor.'%')->get();
@@ -57,10 +57,10 @@ class EmployeePositionController extends Controller
         $employees = Employee::select('employees.*')->where('family_name','like','%'.$family_name.'%')->where('given_name','like','%'.$given_name.'%')->update(['beacon_id' => $id,'position' => $position,'positioned_at' => Carbon::now()]);
 
         if ($employees == 1){
-            return response()->json(["message"=>"Update Successfully"],200);
+            return response()->json("Update Successfully",200);
         }
 
-        return response()->json(["message"=>"Update Failed "],400);
+        return response()->json("Update Failed ",400);
     }
 
 }
