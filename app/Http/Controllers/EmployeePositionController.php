@@ -42,8 +42,9 @@ class EmployeePositionController extends Controller
         
     }
 
-    public function getplace_employees(Request $request,$position)
+    public function getposition_employees(Request $request,$position)
     {
+        Log::info($position);
         $employees = Employee::where('position',$position)->get();
 
         if(!$employees->count())
