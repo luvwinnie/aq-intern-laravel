@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DB;
 use Illuminate\Support\Facades\Log;
+use App\Services\GoogleApi;
 
 class EmployeePositionController extends Controller
 {
@@ -40,6 +41,19 @@ class EmployeePositionController extends Controller
 
         
     }
+
+    public function getplace_employees(Request $request,$position)
+    {
+        $employees = Employee::where('position',$position)->get();
+
+        if(!$employees->count())
+        {
+            return response()->json("No people in ".$position,500);
+        }
+
+        return response()->json($employees,200);
+    }
+
 
     public function post_position(Request $request,$family_name,$given_name)
     {
