@@ -54,10 +54,9 @@ class EmployeePositionController extends Controller
         if (!$beacon){
             return response()->json("Beacon not found, Is it exists?",400);
         }
-//        $id = $position_id[0]->id;
-//        $position = $position_id[0]->position;
 
-        $isUpdated = Employee::select('employees.*')->where('family_name','like','%'.$family_name.'%')->where('given_name','like','%'.$given_name.'%')->update(['beacon_id' => $beacon->$id,'position' => $beacon->$position,'positioned_at' => Carbon::now()]);
+
+        $isUpdated = Employee::select('employees.*')->where('family_name','like','%'.$family_name.'%')->where('given_name','like','%'.$given_name.'%')->update(['beacon_id' => $beacon->id,'position' => $beacon->position,'positioned_at' => Carbon::now()]);
 
         if (!$isUpdated){
             return response()->json("Update Failed ",400);
