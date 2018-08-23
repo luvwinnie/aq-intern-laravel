@@ -7,6 +7,7 @@ use App\Models\Beacon;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DB;
+use Illuminate\Support\Facades\Log;
 
 class EmployeePositionController extends Controller
 {
@@ -40,7 +41,13 @@ class EmployeePositionController extends Controller
         
     }
 
-    public function post_position(Request $request,$family_name,$given_name){
+    public function post_position(Request $request,$family_name,$given_name)
+    {
+
+        Log::info($request->input('major'));
+        Log::info($request->input('minor'));
+        Log::info($family_name);
+        Log::info($given_name);
 
         $major = $request->input('major');
         $minor = $request->input('minor');
