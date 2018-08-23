@@ -49,18 +49,22 @@ class EmployeePositionController extends Controller
             return response()->json("error params",400);
         }
 
-        $position_id = Beacon::select('id','position')->where('major','like','%'.$major.'%')->where('minor','like','%'.$minor.'%')->get();
+        $beacon = Beacon::where('major','like','%'.$major.'%')->where('minor','like','%'.$minor.'%')->get();
 
-        $id = $position_id[0]->id;
-        $position = $position_id[0]->position;
-
-        $employees = Employee::select('employees.*')->where('family_name','like','%'.$family_name.'%')->where('given_name','like','%'.$given_name.'%')->update(['beacon_id' => $id,'position' => $position,'positioned_at' => Carbon::now()]);
-
-        if ($employees == 1){
-            return response()->json("Update Successfully",200);
+        if (!$beacon){
+            return response()->json("Beacon not found, Is it exists?",400);
         }
+//        $id = $position_id[0]->id;
+//        $position = $position_id[0]->position;
 
-        return response()->json("Update Failed ",400);
+        $isUpdated = Employee::select('employees.*')->where('family_name','like','%'.$family_name.'%')->where('given_name','like','%'.$given_name.'%')->update(['beacon_id' => $beacon->$id,'position' => $beacon->$position,'positioned_at' => Carbon::now()]);
+
+        if (!$isUpdated){
+            return response()->json("Update Failed ",400);
+
+        }
+        return response()->json("Update Successfully",200);
+
     }
 
 }
