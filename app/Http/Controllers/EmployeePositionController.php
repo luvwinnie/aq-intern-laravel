@@ -55,6 +55,15 @@ class EmployeePositionController extends Controller
         return response()->json($employees,200);
     }
 
+    public function getemployees_position(Request $request){
+
+        $employees = Employee::all();
+        if (!$employees)
+        {
+            return response()->json("No employees found",404);
+        }
+        return response()->json($employees,200);
+    }
 
     public function post_position(Request $request,$family_name,$given_name)
     {
